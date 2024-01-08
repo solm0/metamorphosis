@@ -6,90 +6,80 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <style>
-        body {
+        * {
             padding: 0;
             margin: 0;
         }
+        body {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(236, 238, 197);
+            overflow: hidden;
+            cursor: none;
+        }
+
     </style>
 </head>
 <body>
-  <script>
- 
+    div.
 
 
+    <script>
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            blueColor = color(5,6,237);
+            yellowColor = color(236, 238, 197);
+            }
 
+            function draw() {
+            background(yellowColor);
 
-    
-
-  var backgroundUpdateInterval = 3;
-  var yellowColor, blueColor;
-
-  function setup() {
-    createCanvas(windowWidth, 6000);
-    yellowColor = color(255, 251, 220);
-    blueColor = color(0, 0, 181);
-  }
-
-  function draw() {
-  normalizedScrollY = map(window.scrollY, 0, document.body.scrollHeight - window.innerHeight, 0, 1);
-    
-   let currentColor;
-   if (normalizedScrollY < 0.48) {
-      currentColor = yellowColor;
-   } else if (normalizedScrollY < 0.5) {
-      let percent = (normalizedScrollY - 0.48) / 0.02;
-      currentColor = lerpColor(yellowColor, blueColor, percent);
-   } else if (normalizedScrollY < 0.98) {
-      let percent = (normalizedScrollY - 0.5) / 0.48;
-      currentColor = blueColor;
-   } else {
-      let percent = (normalizedScrollY - 0.98) / 0.02;
-      currentColor = lerpColor(blueColor, yellowColor, percent);
-   }
-   background(currentColor);
-
-
-
-  if (frameCount % backgroundUpdateInterval === 0) {
-    background(currentColor);
-  }
-  if (normalizedScrollY < 0.5) {
-    fill(blueColor);
-    noStroke();
-  circle(mouseX, mouseY, 10);
-  stroke(blueColor);
-  line(pmouseX, pmouseY,mouseX, mouseY);
-  } else {
-    fill(yellowColor);
-    noStroke();
-  circle(mouseX, mouseY, 10);
-  stroke(yellowColor);
-  line(pmouseX, pmouseY,mouseX, mouseY);
-  }
-
-
-console.log(scrollY);
+            
+            //first rec
+            
+            noStroke();
+            fill(blueColor);
+            let rectHeight1 = map(sin(frameCount * 0.01), -1, 1, windowHeight * 0.1, windowHeight * 0.75);
+            rect(0, 0, windowWidth, rectHeight1);
+            
+            
+            //second rec
+            
+            let rectHeight2 = map(sin(frameCount * 0.01), -1, 1, windowHeight * 0.3, windowHeight * 0.08);
+            
+            let startColor = blueColor;
+            let endColor = yellowColor;
+            
+            let startY = rectHeight1;
+            let endY = startY + rectHeight2;
+            
+            for (let y = startY; y < endY; y++) {
+                let inter = map(y, startY, endY, 0, 1);
+                let gradientColor = lerpColor(startColor, endColor, inter);
+                
+            fill(gradientColor);
+            noStroke();
+            rect(0, y, windowWidth, rectHeight2);
+            }
 
 
 
 
 
- 
-  if (normalizedScrollY >= 1) {
-    window.scrollTo(0, 0);
-} else if (normalizedScrollY <= 0) {
-    window.scrollTo(0, document.body.scrollHeight);
-}
-  
-  if (normalizedScrollY >= 1) {
-    window.scrollTo(0, 0);
-  }
+
+
+            let c = lerpColor( yellowColor, blueColor, map(mouseY, 0, height, 0, 1));
+            fill(c);
+            noStroke();
+            circle(mouseX, mouseY, 30);
+        }
+
+        function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, 5000);
-}
-    
+
 
     </script>
 </body>

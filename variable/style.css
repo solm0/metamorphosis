@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgb(237,238,197);
+    display: flex;
+    justify-content: center;
+}
+
+.wall {
+    position: absolute;
+    width: 130vw;
+    background-color: rgb(6,8,228);
+    z-index: -1;
+    animation: moveWall 10s ease-in-out infinite ;
+   
+    filter: blur(30px);
+}
+@keyframes moveWall {
+    0% {
+        top: -10vh;
+        height: 30vh;
+    }
+    25% {
+        top: 50vh;
+        transform: translate(0, -50%);
+        height: 60vh;
+    }
+    50% {
+        top: 100vh;
+        height: 30vh;
+    }
+    75% {
+        top: 50vh;
+        height: 60vh;
+        transform: translate(0, -50%);
+     }
+    100% {
+        top: -10vh;
+        height: 30vh;
+    }
+}
+
+.container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: aliceblue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+
+@font-face {
+    font-family: 'font';
+    src: url(./NewFontVF.ttf);
+}
+.font {
+font-family: 'font';
+font-size: 200px;
+animation: moveText 10s ease-in-out infinite ;
+}
+
+@keyframes moveText {
+    0% {
+        font-weight: 10;
+        line-height: 100px;
+        letter-spacing: -60px;
+    }
+    25% {
+        font-weight: 100;
+        line-height: 110px;
+        letter-spacing: -39px;
+    }
+    50% {
+        font-weight: 200;
+        line-height: 105px;
+        letter-spacing: -39px;
+    }
+    75% {
+        font-weight: 100;
+        line-height: 110px;
+        letter-spacing: -39px;
+    }
+    100% {
+        font-weight: 10;
+        line-height: 100px;
+        letter-spacing: -60px;
+    }
+}
+.row2 .font {
+    animation-delay: 0.625s; 
+}
+.row3 .font {
+    animation-delay: 1.25s; 
+}
+.row4 .font {
+    animation-delay: 1.875s; 
+}
+.row5 .font {
+    animation-delay: 2.5s;
+}
+.row6 .font {
+    animation-delay: 3.125s;
+}
+.row7 .font {
+    animation-delay: 3.75s;
+}
+.row8 .font {
+    animation-delay: 4.375s;
+}
+.row9 .font {
+    animation-delay: 5s;
+}
