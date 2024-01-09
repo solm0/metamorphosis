@@ -6,6 +6,12 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
     <style>
+
+        @font-face {
+            font-family: 'myfont';
+            src: url(./myfont-text.ttf);
+        }
+     
         * {
             padding: 0;
             margin: 0;
@@ -14,70 +20,208 @@
             position: absolute;
             width: 100vw;
             height: 100vh;
-            background-color: rgb(236, 238, 197);
-            overflow: hidden;
             cursor: none;
+
+            display: flex;
+            align-items: center;
+        }
+        a {
+            text-decoration: none;
+            color: black;
         }
 
+        #s1Container, #s3Container {
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            position: absolute;
+            width: 2500px;
+            height: 780px;
+            overflow-x: scroll;
+            /* background-color: aliceblue;
+            opacity: 50%; */
+            white-space: nowrap;
+            overflow: visible;
+            left: 30px;
+        }
+        .container .subject {
+            margin: 0 300px 0 0;
+            display: inline-block;
+            /* background-color: aqua; */
+            font-family: 'myfont';
+            font-size: 130px;
+            line-height: 108px;
+            mix-blend-mode: multiply;
+        }
+        .subject:hover {
+            font-feature-settings: "ss01";
+            transform: translate(5px, -5px);
+        }
+        #s2Container {
+            position: absolute;
+            width: 2500px;
+            height: 880px;
+            left: 30px;
+            display: inline-block;
+            border: 1px rgb(255, 0, 0) solid;
+        }
+
+        #s2Container * {
+            position: absolute;
+            margin: 0 300px 0 0;
+            display: inline-block;
+            width: 500px;
+            height: 500px;
+        }
+        #s2_2 {
+            left: 800px;
+            visibility: visible;
+        }
+       
+        
     </style>
 </head>
 <body>
+    <div id="s1Container"></div>
+    <div id="s2Container">
+        <div id="s2_1"></div>
+        <div id="s2_2"></div>
+        <div id="s2_3"></div>
+    </div>
+    <div class="container">
+        <a href="./subject_1.html" class="">
+            <div class="subject">m.c.<br>escher<br>:in -<br>finite<br>space</div>
+        </a>
+       <a href="./subject_2.html" class="">
+            <div class="subject">the<br>beauty<br>of<br>print-<br>making</div>
+       </a>
+        <a href="./subject_3.html" class="">
+            <div class="subject">i am<br>walking<br>around<br>all<br>alone</div>
+        </a>
+    </div>
+    <div id="s3Container"></div>
+    
+
+
+
+
+
 
 
 
     <script>
-        function setup() {
-            createCanvas(windowWidth, windowHeight);
-            blueColor = color(5,6,237);
-            yellowColor = color(236, 238, 197);
+        var s1 = function(p) {
+            let blueColor, yellowColor;
+
+            p.setup = function() {
+                console.log('s1 loaded');
+                var s1Container = document.getElementById('s1Container');
+                var cnv1 = p.createCanvas(window.innerWidth, window.innerHeight);
+                cnv1.parent(s1Container);
+
+                blueColor = p.color(5,6,238);
+                yellowColor = p.color(236, 238, 197);
+            };
+
+            p.draw = function() {
+                p.background(yellowColor);
+
+                // first rectangle
+                p.noStroke();
+                p.fill(blueColor);
+                let rectHeight1 = p.map(p.sin(p.frameCount * 0.01), -1, 1, window.innerHeight * 0.1, window.innerHeight * 0.75);
+                p.rect(0, 0, p.windowWidth, rectHeight1);
+
+                // second rectangle
+                let rectHeight2 = p.map(p.sin(p.frameCount * 0.01), -1, 1, window.innerHeight * 0.3, window.innerHeight * 0.08);
+                let startColor = blueColor;
+                let endColor = yellowColor;
+                let startY = rectHeight1;
+                let endY = startY + rectHeight2;
+
+                for (let y = startY; y < endY; y++) {
+                    let inter = p.map(y, startY, endY, 0, 1);
+                    let gradientColor = p.lerpColor(startColor, endColor, inter);
+
+                    p.fill(gradientColor);
+                    p.noStroke();
+                    p.rect(0, y, p.windowWidth, rectHeight2);
+                }
+            };
+
+            p.windowResized = function() {
+                p.resizeCanvas(window.innerWidth, window.innerHeight);
+            };
+            
+
+        };
+
+        
+
+        new p5(s1);
+
+
+
+
+
+
+        var s2 = function(p) {
+            let canvas;
+
+            p.setup = function() {
+                console.log('s2 loaded');
+               canvas = p.createCanvas(629, 880);
+               p.background(200);
+
+               let div1 = document.getElementById('s2_1');
+               canvas.parent(div1);
+               
+               let div3 = document.getElementById('s2_3');
+               canvas.parent(div3);
+               
             }
+            p.draw = function() {
+                p.ellipse(500, 500, 50, 50);
+            }
+        };
 
-            function draw() {
-            background(yellowColor);
+        new p5(s2);
 
-            
-            //first rec
-            
-            noStroke();
-            fill(blueColor);
-            let rectHeight1 = map(sin(frameCount * 0.01), -1, 1, windowHeight * 0.1, windowHeight * 0.75);
-            rect(0, 0, windowWidth, rectHeight1);
-            
-            
-            //second rec
-            
-            let rectHeight2 = map(sin(frameCount * 0.01), -1, 1, windowHeight * 0.3, windowHeight * 0.08);
-            
-            let startColor = blueColor;
-            let endColor = yellowColor;
-            
-            let startY = rectHeight1;
-            let endY = startY + rectHeight2;
-            
-            for (let y = startY; y < endY; y++) {
-                let inter = map(y, startY, endY, 0, 1);
-                let gradientColor = lerpColor(startColor, endColor, inter);
+
+
+
+        var s3 = function(p) {
+            let blueColor, yellowColor;
+
+            p.setup = function() {
+                console.log('s3 loaded')
+                blueColor = p.color(5,6,238);
+                yellowColor = p.color(236, 238, 197);
                 
-            fill(gradientColor);
-            noStroke();
-            rect(0, y, windowWidth, rectHeight2);
-            }
+                let s3Container = document.getElementById('s3Container');
+                p.createCanvas(window.innerWidth, window.innerHeight).parent(s3Container);
+                };
+            
+            p.draw = function() {
+                p.clear();
+                let c = p.lerpColor(yellowColor, blueColor, p.map(p.mouseY, 0, window.innerHeight, 0, 1));
+                p.fill(c);
+                p.noStroke();
+                p.circle(p.mouseX, p.mouseY, 31);
+            };
+            p.windowResized = function() {
+                p.resizeCanvas(window.innerWidth, window.innerHeight);
+            };
+        };
 
-
-
-
-
-
-
-            let c = lerpColor( yellowColor, blueColor, map(mouseY, 0, height, 0, 1));
-            fill(c);
-            noStroke();
-            circle(mouseX, mouseY, 30);
-        }
-
-        function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
+        new p5(s3);
 
 
 
