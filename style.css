@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'myfont';
-    src: url(./myfont-text.ttf);
+    src: url(./metamorphosis-text.ttf);
 }
 @font-face {
     font-family: 'vf';
-    src: url(./combined_metamorphosisVF.ttf);
+    src: url(./metamorphosisVF.ttf);
 }
 
 * {
@@ -422,9 +422,9 @@ a {
     pointer-events: none;
 }
 
-.font-container:nth-of-type(2) {
+/* .font-container:nth-of-type(2) {
     left: 923px;
 }
 #s2_1:nth-last-of-type(2) {
     left: 923px;
-}
+} */
