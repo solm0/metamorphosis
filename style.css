@@ -410,21 +410,3 @@ a {
    display: flex;
    align-items: center;
 }
-
-
-.colormode {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    background-color: #63ba4654;
-    mix-blend-mode: difference;
-    z-index: 50;
-    pointer-events: none;
-}
-
-/* .font-container:nth-of-type(2) {
-    left: 923px;
-}
-#s2_1:nth-last-of-type(2) {
-    left: 923px;
-} */
